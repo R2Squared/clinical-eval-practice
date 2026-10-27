@@ -1,4 +1,4 @@
-from data import load_encounters
+from data.data import load_encounters
 from checks import any_flag
 from metrics import confusion_counts, sensitivity, ppv
 
