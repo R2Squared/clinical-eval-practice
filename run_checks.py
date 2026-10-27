@@ -1,4 +1,4 @@
-from data.data import load_encounters
+from clinical_eval_practice.loader import load_encounters
 from checks import any_flag
 from metrics import confusion_counts, sensitivity, ppv
 
