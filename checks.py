@@ -23,6 +23,7 @@ DRUGS = {
 }
 
 PAST_CUES = ("used to", "stopped", "previously", "switched from", "no longer")
+PAST_WINDOW = 3  # words before a drug name to search for a past cue
 SIDES = {"left", "right"}
 
 
@@ -37,7 +38,7 @@ def current_drugs(text: str) -> set[str]:
     found = set()
     for i, word in enumerate(words):
         if word in DRUGS:
-            preceding = " ".join(words[max(0, i - 4):i])
+            preceding = " ".join(words[max(0, i - PAST_WINDOW):i])
             if not any(cue in preceding for cue in PAST_CUES):
                 found.add(word)
     return found

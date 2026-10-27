@@ -35,3 +35,10 @@ def test_same_side_not_flagged():
 
 def test_side_as_last_word_does_not_crash():
     assert laterality_consistency("Pain on the left", "Pain on the left") == set()
+
+def test_switch_does_not_hide_new_drug():
+    assert current_drugs("Switched from warfarin to apixaban.") == {"apixaban"}
+
+
+def test_stop_does_not_hide_started_drug():
+    assert current_drugs("Stopped ramipril and started amlodipine.") == {"amlodipine"}
