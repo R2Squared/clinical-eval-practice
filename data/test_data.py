@@ -1,4 +1,4 @@
-from data.data import load_encounters
+from clinical_eval_practice.loader import load_encounters
 
 def test_dataset_shape_and_labels():
     df = load_encounters("data/encounters.csv")
