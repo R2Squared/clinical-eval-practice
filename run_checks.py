@@ -1,6 +1,6 @@
 from clinical_eval_practice.loader import load_encounters
 from checks import any_flag
-from metrics import confusion_counts, sensitivity, ppv
+from metrics import confusion_counts, summarise, accuracy, kappa
 
 
 def main() -> None:
@@ -10,8 +10,10 @@ def main() -> None:
     y_true = list(df["has_error"])
     y_pred = list(df["rule_flag"])
     print(confusion_counts(y_true, y_pred))
-    print(f"Sensitivity: {sensitivity(y_true, y_pred):.2f}")
-    print(f"PPV: {ppv(y_true, y_pred):.2f}")
+    for name, (est, low, high) in summarise(y_true, y_pred).items():
+        print(f"{name:<12} {est:.2f}  (95% CI {low:.2f}–{high:.2f})")
+    print(f"{'accuracy':<12} {accuracy(y_true, y_pred):.2f}")
+    print(f"{'kappa':<12} {kappa(y_true, y_pred):.2f}")
 
     print("\nCaught per error type:")
     print(df.groupby("error_type")["rule_flag"].agg(["sum", "count"]))
